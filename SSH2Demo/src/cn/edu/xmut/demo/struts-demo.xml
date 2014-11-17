@@ -1,0 +1,17 @@
+<!DOCTYPE struts PUBLIC  
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+        "http://struts.apache.org/dtds/struts-2.0.dtd">  
+<struts>  
+   <package name="struts-demo" namespace="/demo" extends="json-default">  
+      <!--    用户管理 -->
+         <action name="accountAction" class="accountAction">
+         	<result name="success" type="json">
+         		<param name="root">result</param>
+         	</result>
+         	<result name="list" type="json">
+         		<param name="root">list</param>
+         	</result>
+         </action>
+         
+    </package>  
+</struts>  
