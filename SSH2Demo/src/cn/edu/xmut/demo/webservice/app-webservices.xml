@@ -33,6 +33,7 @@
 	    <map>
 	      <!-- 写key、value -->
 	      <entry key="/testService" value="testServiceExporter"/>
+	      <entry key="/testUserService" value="testUserServiceExporter"/>
 	    </map>  
 	  </property>  
 	</bean> 
@@ -49,6 +50,20 @@
 	  	<property name="serviceClass" value="cn.edu.xmut.demo.webservice.service.TestService" />
 	  	<!-- 实现Web服务的Bean -->  
 	  	<property name="serviceBean" ref="testService" />
+  	</bean>
+  	
+  	<!-- 对user表进行操作 -->
+  	<bean id="testUserService" class="cn.edu.xmut.demo.webservice.serviceimpl.TestUserServiceImpl">
+	<!-- 调用Dao层 -->
+		<property name="baseDao">
+           <ref bean="baseDao"/>
+        </property>
+	</bean> 
+	<bean id="testUserServiceExporter" class="org.codehaus.xfire.spring.remoting.XFireExporter" >  
+		<!-- 对外提供的Web服务的接口 -->  
+	  	<property name="serviceClass" value="cn.edu.xmut.demo.webservice.service.TestUserService" />
+	  	<!-- 实现Web服务的Bean -->  
+	  	<property name="serviceBean" ref="testUserService" />
   	</bean>
   	
 </beans>
