@@ -50,9 +50,9 @@ public class AccountAction extends BaseAction{
 	}
 	
 	public String listByPage() {
-		List<Account> list=accountService.list(currentPage,pageSize);
-		result=JSON.toJSONString(list);
-		return SUCCESS;
+		list=accountService.list(currentPage,pageSize);
+		//result=JSON.toJSON(list).toString();
+		return "list";//SUCCESS
 	}
 	
 	public String count(){

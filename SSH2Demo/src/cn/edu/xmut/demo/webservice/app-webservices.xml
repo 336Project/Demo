@@ -39,11 +39,11 @@
 	</bean> 
   	<!-- accountService将处理来自客户端的调用 -->
   	<!-- Web服务实现类 -->  
-	<bean id="testService" class="cn.edu.xmut.demo.webservice.serviceimpl.TestServiceImpl">
+	<bean id="testService" class="cn.edu.xmut.demo.webservice.serviceimpl.TestServiceImpl" parent="baseService">
 	<!-- 调用Dao层 -->
-		<property name="baseDao">
+		<!-- <property name="baseDao">
            <ref bean="baseDao"/>
-        </property>
+        </property> -->
 	</bean> 
 	<bean id="testServiceExporter" class="org.codehaus.xfire.spring.remoting.XFireExporter" >  
 		<!-- 对外提供的Web服务的接口 -->  

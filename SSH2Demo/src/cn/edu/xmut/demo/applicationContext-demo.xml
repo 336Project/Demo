@@ -6,18 +6,18 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<!-- 用户管理 -->
-    <bean id="accountService" class="cn.edu.xmut.demo.serviceimpl.AccountServiceImpl">
-    	<property name="baseDao">
+    <bean id="accountService" class="cn.edu.xmut.demo.serviceimpl.AccountServiceImpl" parent="baseService">
+    <!--<property name="baseDao">
            <ref bean="baseDao"/>
-        </property>
+        </property> -->
     </bean>
-    <bean id="accountAction" class="cn.edu.xmut.demo.action.AccountAction">
+    <bean id="accountAction" class="cn.edu.xmut.demo.action.AccountAction" parent="baseAction">
     	<property name="accountService">
         	<ref bean="accountService"/>
         </property>
-        <property name="baseService">
+    <!--<property name="baseService">
            <ref bean="baseService"/>
-        </property>
+        </property> -->
     </bean>
 	
 </beans>

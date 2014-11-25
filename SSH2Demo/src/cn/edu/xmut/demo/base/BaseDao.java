@@ -20,6 +20,8 @@ public interface BaseDao {
 	public void deleteByClassNameAndId(String entityName,Serializable id);
 	public void deleteByClassNameAndIds(String entityName,Serializable[] ids);
 	public void deleteByClassNameAndParams(String entityName,Map<String, Object> whereParams);
+	public void deleteByHQL(String hql);
+	public void deleteBySQL(String sql);
 	public void update(Object entity);
 	public void update(String entityName, Object entity);
 	public int countByClassName(String entityName);

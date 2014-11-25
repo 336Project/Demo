@@ -47,8 +47,10 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao{
 	
 	@Override
 	public void deleteByClassNameAndId(String entityName, Serializable id) {
-		Object object=getByClassNameAndId(entityName, id);//getHibernateTemplate().get("cn.edu.xmut.demo.model.Account", id);
-		getHibernateTemplate().delete(object);
+		/*Object object=getByClassNameAndId(entityName, id);//getHibernateTemplate().get("cn.edu.xmut.demo.model.Account", id);
+		getHibernateTemplate().delete(object);*/
+		String hql="delete from "+entityName+" where id="+id;
+		deleteByHQL(hql);
 	}
 
 	@Override
@@ -64,23 +66,44 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao{
 
 	@Override
 	public <T> T getByHQL(final String hql) {
-		T object=getHibernateTemplate().execute(new HibernateCallback<T>() {
-
-			@Override
-			public T doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query=session.createQuery(hql);
-				return (T) query.uniqueResult();
-			}
-		});
-		return object;
+		try{
+			T object=getHibernateTemplate().execute(new HibernateCallback<T>() {
+	
+				@Override
+				public T doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					Query query=session.createQuery(hql);
+					return (T) query.uniqueResult();
+				}
+			});
+			return object;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@Override
 	public <T> T getByClassNameAndParams(String entityName,Map<String, Object> whereParams) {
-		List<T> objects=getHibernateTemplate().find(BaseUtil.getHqlString(entityName, whereParams));
+		final String hql=BaseUtil.getHqlString(entityName, whereParams);
+		/*List<T> objects=getHibernateTemplate().find(BaseUtil.getHqlString(entityName, whereParams));
 		if(objects!=null&&objects.size()>0){
 			return objects.get(0);
+		}
+		return null;*/
+		try{
+			T object=getHibernateTemplate().execute(new HibernateCallback<T>() {
+	
+				@Override
+				public T doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					Query query=session.createQuery(hql);
+					return (T) query.uniqueResult();
+				}
+			});
+			return object;
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -295,30 +318,64 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao{
 
 	@Override
 	public int countBySQL(final String sql) {
-		int count=getHibernateTemplate().execute(new HibernateCallback<Integer>() {
-
-			@Override
-			public Integer doInHibernate(Session session) throws HibernateException,
-					SQLException {
-				Query query=session.createSQLQuery(sql);
-				return ((BigInteger) query.uniqueResult()).intValue();
-			}
-		});
+		int count=0;
+		try{
+			count=getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+	
+				@Override
+				public Integer doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					Query query=session.createSQLQuery(sql);
+					return ((BigInteger) query.uniqueResult()).intValue();
+				}
+			});
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return count;
 	}
 
 	@Override
-	public Object getBySQL(final String sql) {
-		Object object=getHibernateTemplate().execute(new HibernateCallback<Object>() {
+	public <T> T getBySQL(final String sql) {
+		try{
+			T object=getHibernateTemplate().execute(new HibernateCallback<T>() {
+	
+				@Override
+				public T doInHibernate(Session session) throws HibernateException,
+						SQLException {
+					Query query=session.createSQLQuery(sql);
+					return (T) query.uniqueResult();
+				}
+			});
+			return object;
+		}catch(Exception e){
+			
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteByHQL(final String hql) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
 
 			@Override
-			public Object doInHibernate(Session session) throws HibernateException,
-					SQLException {
-				Query query=session.createSQLQuery(sql);
-				return (Object) query.uniqueResult();
+			public Integer doInHibernate(Session session) throws HibernateException, SQLException {
+				Query query=session.createQuery(hql);
+				return query.executeUpdate();
 			}
 		});
-		return object;
+	}
+
+	@Override
+	public void deleteBySQL(final String sql) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+			@Override
+			public Integer doInHibernate(Session session) throws HibernateException, SQLException {
+				Query query=session.createSQLQuery(sql);
+				return query.executeUpdate();
+			}
+		});
 	}
 
 }

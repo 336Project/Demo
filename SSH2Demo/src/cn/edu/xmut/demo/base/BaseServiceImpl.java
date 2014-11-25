@@ -180,6 +180,15 @@ public class BaseServiceImpl implements BaseService{
 		return baseDao.listPageRowsByClassNameAndParams(entityName, whereParams, currentPage, pageSize);
 	}
 	
+	@Override
+	public void deleteByHQL(String hql) {
+		baseDao.deleteByHQL(hql);
+	}
+
+	@Override
+	public void deleteBySQL(String sql) {
+		baseDao.deleteBySQL(sql);
+	}
 	
 	public void setBaseDao(BaseDao baseDao) {
 		this.baseDao = baseDao;
@@ -187,4 +196,5 @@ public class BaseServiceImpl implements BaseService{
 	public BaseDao getBaseDao(){
 		return baseDao;
 	}
+
 }
