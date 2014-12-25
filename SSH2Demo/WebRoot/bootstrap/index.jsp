@@ -63,15 +63,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  <a href="index.html" class="navbar-brand hidden-lg">首页</a>
 		</div>
       
-      
-
       <!-- Navigation starts -->
       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">         
 
         <ul class="nav navbar-nav">  
 
           <!-- Upload to server link. Class "dropdown-big" creates big dropdown -->
-          <li class="dropdown dropdown-big" style="display: none;">
+          <li class="dropdown dropdown-big">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-success"><i class="icon-cloud-upload"></i></span> 上传到云服务器</a>
             <!-- Dropdown -->
             <ul class="dropdown-menu">
@@ -108,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </li>
 
           <!-- Sync to server link -->
-          <li class="dropdown dropdown-big" style="display: none;">
+          <li class="dropdown dropdown-big">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-danger"><i class="icon-refresh"></i></span> 同步到服务器</a>
             <!-- Dropdown -->
             <ul class="dropdown-menu">
@@ -132,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </ul>
 
         <!-- Search form -->
-        <form class="navbar-form navbar-left" role="search" style="display: none;">
+        <form class="navbar-form navbar-left" role="search">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search">
 			</div>
