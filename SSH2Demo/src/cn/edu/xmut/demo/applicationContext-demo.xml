@@ -7,17 +7,18 @@
 
 	<!-- 用户管理 -->
     <bean id="accountService" class="cn.edu.xmut.demo.serviceimpl.AccountServiceImpl" parent="baseService">
-    <!--<property name="baseDao">
-           <ref bean="baseDao"/>
-        </property> -->
     </bean>
     <bean id="accountAction" class="cn.edu.xmut.demo.action.AccountAction" parent="baseAction">
     	<property name="accountService">
         	<ref bean="accountService"/>
         </property>
-    <!--<property name="baseService">
-           <ref bean="baseService"/>
-        </property> -->
     </bean>
-	
+	<!-- 角色管理 -->
+    <bean id="roleService" class="cn.edu.xmut.demo.serviceimpl.RoleServiceImpl" parent="baseService">
+    </bean>
+    <bean id="roleAction" class="cn.edu.xmut.demo.action.RoleAction" parent="baseAction">
+    	<property name="roleService">
+        	<ref bean="roleService"/>
+        </property>
+    </bean>
 </beans>

@@ -1,66 +1,83 @@
 package cn.edu.xmut.demo.action;
 
-import java.util.List;
-
-import com.alibaba.fastjson.JSON;
-
 import cn.edu.xmut.demo.base.BaseAction;
 import cn.edu.xmut.demo.model.Account;
 import cn.edu.xmut.demo.service.AccountService;
+import cn.edu.xmut.demo.util.WebUtil;
+
+
 
 
 public class AccountAction extends BaseAction{
 	private AccountService accountService;
 	private Account account;
-	private List<Account> list;
-	private String result;
-	private int id;
-	private String ids;
-	private int currentPage;
-	private int pageSize;
-	public String add(){
-		accountService.save(account);
-		result="添加成功!";
+	private String username;//用户名
+	private String password;//密码
+	private String type;//角色类型
+	/**
+	 * 
+	 * @Author:Helen  
+	 * 2014-12-24下午8:48:14
+	 * @return
+	 * String
+	 * @TODO 登录
+	 */
+	public String login(){
+		if(accountService.login(username, password,type)){
+			json.setSuccess(true);
+			json.setMsg("/bootstrap/index.jsp");
+		}else{
+			json.setSuccess(false);
+			json.setMsg("用户名或密码错误!");
+		}
 		return SUCCESS;
 	}
-	
-	public String delete(){
-		//accountService.delete(account);
-		accountService.deleteById(id);
-		//accountService.deleteByIds(ids);
-		result="删除成功!";
-		return SUCCESS;
+	/**
+	 * 
+	 * @Author:Helen  
+	 * 2014-12-24下午8:48:30
+	 * @return
+	 * String
+	 * @TODO 退出
+	 */
+	public String logout(){
+		//将用户信息从session中移除
+		WebUtil.remove4Session(WebUtil.KEY_LOGIN_USER_SESSION);
+		return LOGIN;
+	}
+	/**
+	 * 
+	 * @Author:Helen  
+	 * 2014-12-24下午8:48:39
+	 * @return
+	 * String
+	 * @TODO 注册
+	 */
+	public String register(){
+		//注册完跳到登录页
+		long id=accountService.add(account);
+		if(id<0){
+			return ERROR;
+		}
+		return LOGIN;
 	}
 	
-	public String update() {
-		accountService.update(account);
-		result="更新成功!";
-		return SUCCESS;
+	public String getUsername() {
+		return username;
 	}
-	
-	public String getRecord() {
-		account=accountService.getAccount(id);
-		result=JSON.toJSONString(account);
-		return SUCCESS;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public String list(){
-		list=accountService.list();
-		//result=JSON.toJSONString(list);
-		return "list";//SUCCESS
+
+	public String getPassword() {
+		return password;
 	}
-	
-	public String listByPage() {
-		list=accountService.list(currentPage,pageSize);
-		//result=JSON.toJSON(list).toString();
-		return "list";//SUCCESS
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	
-	public String count(){
-		long count=accountService.count();
-		result=count+"";
-		return SUCCESS;
-	}
-	
+
 	public AccountService getAccountService() {
 		return accountService;
 	}
@@ -77,53 +94,10 @@ public class AccountAction extends BaseAction{
 		this.account = account;
 	}
 
-	public String getResult() {
-		return result;
+	public String getType() {
+		return type;
 	}
-
-	public void setResult(String result) {
-		this.result = result;
+	public void setType(String type) {
+		this.type = type;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getIds() {
-		return ids;
-	}
-
-	public void setIds(String ids) {
-		this.ids = ids;
-	}
-
-
-	public List<Account> getList() {
-		return list;
-	}
-
-	public void setList(List<Account> list) {
-		this.list = list;
-	}
-
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
 }

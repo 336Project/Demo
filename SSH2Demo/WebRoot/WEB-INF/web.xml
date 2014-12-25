@@ -6,7 +6,7 @@
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
   <display-name></display-name>	
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <!-- struts2-spring配置start -->
   <context-param>
@@ -96,4 +96,13 @@
 	<url-pattern>/*</url-pattern>
   </filter-mapping>
   <!-- 字符编码统一为UTF-8 end-->
+ <!--  页面过滤器 -->
+  <filter>
+    <filter-name>AuthorityFilter</filter-name>
+    <filter-class>cn.edu.xmut.demo.base.auth.AuthorityFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthorityFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
  </web-app>
