@@ -39,7 +39,6 @@ public class AuthorityInterceptor extends AbstractInterceptor{
 		}
 		return arg0.invoke();
 	}
-	
 	public String getExcludeName() {
 		return excludeName;
 	}
@@ -52,4 +51,5 @@ public class AuthorityInterceptor extends AbstractInterceptor{
 	public void setList(List<String> list) {
 		this.list = list;
 	}
+
 }
